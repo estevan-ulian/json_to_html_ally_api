@@ -1,6 +1,7 @@
-const API = 'https://api.sellead.com/api/v1/country';
+const countriesAPI = 'https://api.sellead.com/api/v1/country';
+const nationalityAPI = 'https://api.sellead.com/api/v1/nationality';
 
-function createListInHTML (value) {
+function createResultHTMLcountries (value) {
     const listHTML = document.querySelector('.country-list');
 
     const html = `
@@ -14,7 +15,21 @@ function createListInHTML (value) {
     return listHTML.insertAdjacentHTML('afterend', html);
 };
 
-const countries = fetch(API)
+function createResultHTMLnationalities (result) {
+    const listHTML = document.querySelector('.nationality-list');
+
+    const html = `
+    <div class="item">
+        <span>${result.country}</span>
+        <span>|</span>
+        <span>${result.nationality}</span>
+    </div>
+    `
+
+    return listHTML.insertAdjacentHTML('afterend', html);
+};
+
+const countries = fetch(countriesAPI)
     .then(res => {
 
         if(res.ok) {
@@ -40,29 +55,53 @@ const countries = fetch(API)
 
         dataSort.filter(result => {
 
-            createListInHTML(result)
+            createResultHTMLcountries(result);
         
         });  
 
     })
-    .catch(err => console.log(`ERRO! Não foi possível exibir os dados. ${err}`));
+    .catch(err => {
+        const containerResult = document.querySelector('.country-list');
+        containerResult.innerText = "Não foi possível puxar os dados."
+        console.log(`Não foi possível puxar os dados.`);    
+        console.log(err);    
+    });
 
 
-    // .then(data => {
-    //     const html = data
-    //         .map(v => {
-    //             return (`
-    //                 <p class="item">
-    //                     <span>${v.code}</span>
-    //                     <span>|</span>
-    //                     <span>${v.name_ptbr}</span>
-    //                 </p>
-    //             `);
-    //         })
-    //         .join('');
+    const nationalities = fetch(nationalityAPI)
+    .then(res => {
 
-    //     const countryList = document.querySelector('.country-list');
-    //     countryList.insertAdjacentHTML(
-    //         'afterend', html);
-    // })
-    // .catch(error => console.log('ERROR -> dados não encontrados.'));
+        if(res.ok) {
+            console.log('success')
+        } else {
+            console.log('not successful')
+        }
+
+        return res.json();
+
+    })
+    .then(data => {
+        const dataSort = data.sort( (a, b) => {
+
+            let nameA = a.name_ptbr.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            let nameB = b.name_ptbr.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+            if (nameA > nameB) return -1;
+            if (nameA < nameB) return 1;
+            return 0;
+
+        });
+
+        dataSort.filter(result => {
+
+            createResultHTMLnationalities(result);
+        
+        });  
+
+    })
+    .catch(err => {
+        const containerResult = document.querySelector('.nationality-list');
+        containerResult.innerText = "Não foi possível puxar os dados."
+        console.log(`Não foi possível puxar os dados.`);    
+        console.log(err);    
+    });
