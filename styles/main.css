@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 1.6rem;
+}
+
+.container {
+    display: flex;
+    flex-flow: column wrap;
+    max-width: 80rem;
+    margin: 20px 20px;
+    align-items: left;
+    justify-content: flex-start;
+}
+
+.item {
+    display: block;
+}
+
+.item span {
+    display: inline-block;
+    margin-bottom: 10px;
+}
