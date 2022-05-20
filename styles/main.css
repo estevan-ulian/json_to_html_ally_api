@@ -29,7 +29,7 @@ body {
     display: block;
     max-height: 400px;
     overflow-y: scroll;
-    padding: 2rem;
+    padding: 0 2rem 2rem;
     border: 1px solid #ccc;
     border-radius: .4rem;
     box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
@@ -42,11 +42,23 @@ body {
     font-size: 2.4rem;
 }
 
+.container-legend {
+    display: block;
+    position: fixed;
+    padding: .5rem 0;
+    max-width: 100%;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    width: 30rem;
+}
+
+.country-list, .nationality-list {
+    margin-top: 3.2rem;
+}
+
 .legend-country, .legend-nationality {
-    display: inline-block;
-    margin-bottom: 1rem;
-    padding-bottom: .4rem;
-    border-bottom: .1rem solid #ccc;
+    display: block;
+    width: 100%;
 }
 
 .item {
@@ -55,7 +67,6 @@ body {
 
 .item span {
     display: inline-block;
-    margin-bottom: .1rem;
 }
 
 .error {

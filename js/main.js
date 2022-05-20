@@ -102,6 +102,6 @@ const countries = fetch(countriesAPI)
     .catch(err => {
         const containerResult = document.querySelector('.nationality-list');
         containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados das Nacionalidades.<p>`
-        document.querySelector('.legend-nationality').classList.add('hidden');
+        document.querySelector('.container-legend-nationality').classList.add('hidden');
         console.warn(`Não foi possível puxar os dados das Nacionalidades. -> ${err}`);    
     });
