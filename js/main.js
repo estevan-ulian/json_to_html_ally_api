@@ -32,11 +32,11 @@ function createResultHTMLnationalities (result) {
 const countries = fetch(countriesAPI)
     .then(res => {
 
-        if(res.ok) {
-            console.log('success')
-        } else {
-            console.log('not successful')
-        }
+        // if(res.ok) {
+        //     console.log('success')
+        // } else {
+        //     console.log('not successful')
+        // }
 
         return res.json();
 
@@ -62,8 +62,8 @@ const countries = fetch(countriesAPI)
     })
     .catch(err => {
         const containerResult = document.querySelector('.country-list');
-        containerResult.innerText = "Não foi possível puxar os dados."
-        console.log(`Não foi possível puxar os dados.`);    
+        containerResult.innerText = `<p class="error">Não foi possível puxar os dados dos Países.<p>`
+        console.warn(`Não foi possível puxar os dados dos Países.`);    
         console.log(err);    
     });
 
@@ -71,11 +71,11 @@ const countries = fetch(countriesAPI)
     const nationalities = fetch(nationalityAPI)
     .then(res => {
 
-        if(res.ok) {
-            console.log('success')
-        } else {
-            console.log('not successful')
-        }
+        // if(res.ok) {
+        //     console.log('success')
+        // } else {
+        //     console.log('not successful')
+        // }
 
         return res.json();
 
@@ -101,7 +101,7 @@ const countries = fetch(countriesAPI)
     })
     .catch(err => {
         const containerResult = document.querySelector('.nationality-list');
-        containerResult.innerText = "Não foi possível puxar os dados."
-        console.log(`Não foi possível puxar os dados.`);    
-        console.log(err);    
+        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados das Nacionalidades.<p>`
+        document.querySelector('.legend-nationality').classList.add('hidden');
+        console.warn(`Não foi possível puxar os dados das Nacionalidades. -> ${err}`);    
     });

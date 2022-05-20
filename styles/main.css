@@ -1,3 +1,5 @@
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -40,7 +42,7 @@ body {
     font-size: 2.4rem;
 }
 
-.legend {
+.legend-country, .legend-nationality {
     display: inline-block;
     margin-bottom: 1rem;
     padding-bottom: .4rem;
@@ -54,4 +56,26 @@ body {
 .item span {
     display: inline-block;
     margin-bottom: .1rem;
+}
+
+.error {
+    display: inline-block;
+    color: white;
+    background-color: rgb(212, 45, 45);
+    border-radius: .4rem;
+    padding: .2rem 1rem;
+}
+
+.error::after {
+    content: '\f071';
+    font-family: "Font Awesome 5 Free";
+    margin-left: 1rem;
+    font-size: 1.3rem;
+    color: yellow;
+    font-weight: 900;
+}
+
+.hidden {
+    display: none;
+    visibility: hidden;
 }
