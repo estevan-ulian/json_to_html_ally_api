@@ -29,6 +29,10 @@ function createResultHTMLnationalities (result) {
     return listHTML.insertAdjacentHTML('afterend', html);
 };
 
+function addHiddenClass(item) {
+    document.querySelector(item).classList.add('hidden');
+}
+
 const countries = fetch(countriesAPI)
     .then(res => {
 
@@ -62,7 +66,8 @@ const countries = fetch(countriesAPI)
     })
     .catch(err => {
         const containerResult = document.querySelector('.country-list');
-        containerResult.innerText = `<p class="error">Não foi possível puxar os dados dos Países.<p>`
+        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados dos Países.<p>`
+        addHiddenClass('.container-legend')
         console.warn(`Não foi possível puxar os dados dos Países.`);    
         console.log(err);    
     });
@@ -102,6 +107,6 @@ const countries = fetch(countriesAPI)
     .catch(err => {
         const containerResult = document.querySelector('.nationality-list');
         containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados das Nacionalidades.<p>`
-        document.querySelector('.container-legend-nationality').classList.add('hidden');
+        addHiddenClass('.container-legend-nationality')
         console.warn(`Não foi possível puxar os dados das Nacionalidades. -> ${err}`);    
     });

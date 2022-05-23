@@ -14,22 +14,26 @@ html {
 body {
     font-family: sans-serif;
     font-size: 1.6rem;
+    margin: 0 1rem;
 }
 
 .container {
     display: flex;
-    flex-flow: column wrap;
-    max-width: 60rem;
+    flex-flow: row wrap;
+    max-width: 120rem;
     margin: 2rem 2rem;
-    align-items: left;
-    justify-content: flex-start;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 5rem;
 }
 
 .container-result {
+    flex: 1 0 100%;
     display: block;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: scroll;
     padding: 0 2rem 2rem;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: .4rem;
     box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
@@ -40,9 +44,10 @@ body {
     margin-bottom: 2rem;
     margin-top: 3rem;
     font-size: 2.4rem;
+    text-align: center;
 }
 
-.container-legend {
+.container-legend-country {
     display: block;
     position: fixed;
     padding: .5rem 0;
@@ -75,6 +80,7 @@ body {
     background-color: rgb(212, 45, 45);
     border-radius: .4rem;
     padding: .2rem 1rem;
+    margin-bottom: 1rem;
 }
 
 .error::after {
