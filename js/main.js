@@ -253,6 +253,6 @@ const countries = fetch(countriesAPI)
     .catch(err => {
         const containerResult = document.querySelector('.phone-list');
         containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados da Moeda Corrente.<p>`
-        addHiddenClass('.container-legend-phone')
+        addHiddenClass('.container-phone')
         console.warn(`Não foi possível puxar os dados dos Phones. -> ${err}`);    
     });
