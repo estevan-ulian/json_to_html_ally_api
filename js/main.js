@@ -1,5 +1,6 @@
-const countriesAPI = 'https://api.sellead.com/api/v1/country';
-const nationalityAPI = 'https://api.sellead.com/api/v1/nationality';
+const countriesAPI = 'https://api.sellead.com/country';
+const nationalityAPI = 'https://api.sellead.com/nationality';
+const cityAPI = 'https://api.sellead.com/api/v1/city';
 
 function createResultHTMLcountries (value) {
     const listHTML = document.querySelector('.country-list');
@@ -29,6 +30,20 @@ function createResultHTMLnationalities (result) {
     return listHTML.insertAdjacentHTML('afterend', html);
 };
 
+function createResultHTMLcities (result) {
+    const listHTML = document.querySelector('.city-list');
+
+    const html = `
+    <div class="item">
+        <span>${result.name_ptbr}</span>
+        <span>|</span>
+        <span>${result.name}</span>
+    </div>
+    `
+
+    return listHTML.insertAdjacentHTML('afterend', html);
+};
+
 function addHiddenClass(item) {
     document.querySelector(item).classList.add('hidden');
 }
@@ -36,16 +51,11 @@ function addHiddenClass(item) {
 const countries = fetch(countriesAPI)
     .then(res => {
 
-        // if(res.ok) {
-        //     console.log('success')
-        // } else {
-        //     console.log('not successful')
-        // }
-
         return res.json();
 
     })
     .then(data => {
+
         const dataSort = data.sort( (a, b) => {
 
             let nameA = a.name_ptbr.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
@@ -76,20 +86,14 @@ const countries = fetch(countriesAPI)
     const nationalities = fetch(nationalityAPI)
     .then(res => {
 
-        // if(res.ok) {
-        //     console.log('success')
-        // } else {
-        //     console.log('not successful')
-        // }
-
         return res.json();
 
     })
     .then(data => {
         const dataSort = data.sort( (a, b) => {
 
-            let nameA = a.name_ptbr.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-            let nameB = b.name_ptbr.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            let nameA = a.country.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            let nameB = b.country.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
             if (nameA > nameB) return -1;
             if (nameA < nameB) return 1;
@@ -109,4 +113,37 @@ const countries = fetch(countriesAPI)
         containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados das Nacionalidades.<p>`
         addHiddenClass('.container-legend-nationality')
         console.warn(`Não foi possível puxar os dados das Nacionalidades. -> ${err}`);    
+    });
+
+
+    const cities = fetch(cityAPI)
+    .then(res => {
+
+        return res.json();
+
+    })
+    .then(data => {
+        const dataSort = data.sort( (a, b) => {
+
+            let nameA = a.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            let nameB = b.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+            if (nameA > nameB) return -1;
+            if (nameA < nameB) return 1;
+            return 0;
+
+        });
+
+        dataSort.filter(result => {
+
+            createResultHTMLcities(result);
+        
+        });  
+
+    })
+    .catch(err => {
+        const containerResult = document.querySelector('.city-list');
+        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados das Nacionalidades.<p>`
+        addHiddenClass('.container-legend-city')
+        console.warn(`Não foi possível puxar os dados das Cidades. -> ${err}`);    
     });

@@ -15,6 +15,7 @@ body {
     font-family: sans-serif;
     font-size: 1.6rem;
     margin: 0 1rem;
+    padding: 2rem 0;
 }
 
 .container {
@@ -27,12 +28,16 @@ body {
     gap: 5rem;
 }
 
+.container-content {
+    display: flex;
+    flex-flow: column wrap;
+}
+
 .container-result {
-    flex: 1 0 100%;
     display: block;
     max-height: 500px;
     overflow-y: scroll;
-    padding: 0 2rem 2rem;
+    padding: 0 2rem;
     width: 100%;
     border: 1px solid #ccc;
     border-radius: .4rem;
@@ -47,21 +52,19 @@ body {
     text-align: center;
 }
 
-.container-legend-country {
+.container-legend-country, .container-legend-nationality, .container-legend-city {
     display: block;
-    position: fixed;
-    padding: .5rem 0;
-    max-width: 100%;
+    margin-top: 1rem;
     background-color: white;
     border-bottom: 1px solid #ccc;
     width: 30rem;
 }
 
-.country-list, .nationality-list {
-    margin-top: 3.2rem;
+.country-list, .nationality-list, .city-list {
+    margin-top: 1rem;
 }
 
-.legend-country, .legend-nationality {
+.legend-country, .legend-nationality, .legend-city {
     display: block;
     width: 100%;
 }
