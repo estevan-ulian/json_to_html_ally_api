@@ -34,16 +34,30 @@ function createResultHTMLnationalities (result) {
 
 function createResultHTMLcities (result) {
     const listHTML = document.querySelector('.city-list');
-
-    const html = `
+    
+    if (result.name_ptbr === null) {
+        const html = `
     <div class="item">
-        <span>${result.name_ptbr}</span>
+        <span>${result.name}</span>
         <span>|</span>
         <span>${result.name}</span>
     </div>
     `
-
     return listHTML.insertAdjacentHTML('afterend', html);
+        
+    } else {
+        const html = `
+        <div class="item">
+            <span>${result.name_ptbr}</span>
+            <span>|</span>
+            <span>${result.name}</span>
+        </div>
+        `
+        return listHTML.insertAdjacentHTML('afterend', html);
+    }
+    
+
+    
 };
 
 function createResultHTMLcurrency (result) {
@@ -240,5 +254,5 @@ const countries = fetch(countriesAPI)
         const containerResult = document.querySelector('.phone-list');
         containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados da Moeda Corrente.<p>`
         addHiddenClass('.container-legend-phone')
-        console.warn(`Não foi possível puxar os dados Moeda Corrente. -> ${err}`);    
+        console.warn(`Não foi possível puxar os dados dos Phones. -> ${err}`);    
     });
