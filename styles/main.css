@@ -52,7 +52,7 @@ body {
     text-align: center;
 }
 
-p.parameter {
+.parameter {
     text-align: center;
     margin-bottom: 2rem;
     font-style: italic;
