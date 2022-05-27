@@ -1,6 +1,8 @@
 const countriesAPI = 'https://api.sellead.com/country';
 const nationalityAPI = 'https://api.sellead.com/nationality';
 const cityAPI = 'https://api.sellead.com/api/v1/city';
+const currencyAPI = '../data/currency.json';
+const phoneAPI = '../data/phones.json';
 
 function createResultHTMLcountries (value) {
     const listHTML = document.querySelector('.country-list');
@@ -38,6 +40,34 @@ function createResultHTMLcities (result) {
         <span>${result.name_ptbr}</span>
         <span>|</span>
         <span>${result.name}</span>
+    </div>
+    `
+
+    return listHTML.insertAdjacentHTML('afterend', html);
+};
+
+function createResultHTMLcurrency (result) {
+    const listHTML = document.querySelector('.currency-list');
+
+    const html = `
+    <div class="item">
+        <span>${result.name} (${result.symbol})</span>
+        <span>|</span>
+        <span>${result.code}</span>
+    </div>
+    `
+
+    return listHTML.insertAdjacentHTML('afterend', html);
+};
+
+function createResultHTMLphone (result) {
+    const listHTML = document.querySelector('.phone-list');
+
+    const html = `
+    <div class="item">
+        <span>${result.name} (${result.dial_code})</span>
+        <span>|</span>
+        <span>${result.dial_code}</span>
     </div>
     `
 
@@ -114,7 +144,7 @@ const countries = fetch(countriesAPI)
         addHiddenClass('.container-legend-nationality')
         console.warn(`Não foi possível puxar os dados das Nacionalidades. -> ${err}`);    
     });
-
+    
 
     const cities = fetch(cityAPI)
     .then(res => {
@@ -146,4 +176,69 @@ const countries = fetch(countriesAPI)
         containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados das Nacionalidades.<p>`
         addHiddenClass('.container-legend-city')
         console.warn(`Não foi possível puxar os dados das Cidades. -> ${err}`);    
+    });
+
+
+    const currency = fetch(currencyAPI)
+    .then(res => {
+
+        return res.json();
+
+    })
+    .then(data => {
+        const dataSort = data.sort( (a, b) => {
+
+            let nameA = a.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            let nameB = b.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+            if (nameA > nameB) return -1;
+            if (nameA < nameB) return 1;
+            return 0;
+
+        });
+
+        dataSort.filter(result => {
+
+            createResultHTMLcurrency(result);
+        
+        });  
+
+    })
+    .catch(err => {
+        const containerResult = document.querySelector('.city-list');
+        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados da Moeda Corrente.<p>`
+        addHiddenClass('.container-currency')
+        console.warn(`Não foi possível puxar os dados Moeda Corrente. -> ${err}`);    
+    });
+    
+    const phone = fetch(phoneAPI)
+    .then(res => {
+
+        return res.json();
+
+    })
+    .then(data => {
+        const dataSort = data.sort( (a, b) => {
+
+            let nameA = a.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            let nameB = b.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+            if (nameA > nameB) return -1;
+            if (nameA < nameB) return 1;
+            return 0;
+
+        });
+
+        dataSort.filter(result => {
+
+            createResultHTMLphone(result);
+        
+        });  
+
+    })
+    .catch(err => {
+        const containerResult = document.querySelector('.phone-list');
+        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados da Moeda Corrente.<p>`
+        addHiddenClass('.container-legend-phone')
+        console.warn(`Não foi possível puxar os dados Moeda Corrente. -> ${err}`);    
     });
