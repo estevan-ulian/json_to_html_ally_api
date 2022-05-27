@@ -30,12 +30,13 @@ body {
 
 .container-content {
     display: flex;
+    flex: 1;
     flex-flow: column wrap;
 }
 
 .container-result {
     display: block;
-    max-height: 500px;
+    max-height: 300px;
     overflow-y: scroll;
     padding: 0 2rem;
     width: 100%;
