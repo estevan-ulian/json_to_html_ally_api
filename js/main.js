@@ -219,7 +219,7 @@ const countries = fetch(countriesAPI)
 
     })
     .catch(err => {
-        const containerResult = document.querySelector('.city-list');
+        const containerResult = document.querySelector('.currency-list');
         containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados da Moeda Corrente.<p>`
         addHiddenClass('.container-currency')
         console.warn(`Não foi possível puxar os dados Moeda Corrente. -> ${err}`);    
