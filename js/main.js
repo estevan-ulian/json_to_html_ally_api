@@ -3,6 +3,7 @@ const nationalityAPI = 'https://api.sellead.com/nationality';
 const cityAPI = 'https://api.sellead.com/api/v1/city';
 const currencyAPI = '../data/currency.json';
 const phoneAPI = '../data/phones.json';
+const dddAPI = '../data/ddd.json';
 
 function createResultHTMLcountries (value) {
     const listHTML = document.querySelector('.country-list');
@@ -88,8 +89,22 @@ function createResultHTMLphone (result) {
     return listHTML.insertAdjacentHTML('afterend', html);
 };
 
+function createResultHTMLddd (result) {
+    const listHTML = document.querySelector('.ddd-list');
+
+    const html = `
+    <div class="item">
+        <span>(${result})</span>
+        <span>|</span>
+        <span>${result}</span>
+    </div>
+    `
+
+    return listHTML.insertAdjacentHTML('afterend', html);
+};
+
 function addHiddenClass(item) {
-    document.querySelector(item).classList.add('hidden');
+    document.querySelector(item).classList.toggle('hidden');
 }
 
 const countries = fetch(countriesAPI)
@@ -252,7 +267,34 @@ const countries = fetch(countriesAPI)
     })
     .catch(err => {
         const containerResult = document.querySelector('.phone-list');
-        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados da Moeda Corrente.<p>`
+        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados dos Phones.<p>`
         addHiddenClass('.container-phone')
-        console.warn(`Não foi possível puxar os dados dos Phones. -> ${err}`);    
+        c
+        onsole.warn(`Não foi possível puxar os dados dos Phones. -> ${err}`);    
+    });
+
+    const DDD = fetch(dddAPI)
+    .then(res => {
+        return res.json();
+
+    })
+    .then(data => {
+        const dataKeys = Object.keys(data.estadoPorDdd);
+
+        const dataKeysSort = dataKeys.sort( (a, b) => {
+            return b - a;
+        })
+
+        return (dataKeysSort.filter(result => {
+
+            createResultHTMLddd(result);
+
+        })
+        )
+    })
+    .catch(err => {
+        const containerResult = document.querySelector('.ddd-list');
+        containerResult.innerHTML = `<p class="error">Não foi possível puxar os dados dos DDD's.<p>`
+        addHiddenClass('.container-ddd')
+        console.warn(`Não foi possível puxar os dados dos DDD's. -> ${err}`);    
     });

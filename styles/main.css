@@ -58,7 +58,7 @@ body {
     font-style: italic;
 }
 
-.container-legend-country, .container-legend-nationality, .container-legend-city, .container-currency, .container-phone {
+.container-legend-country, .container-legend-nationality, .container-legend-city, .container-currency, .container-phone, .container-ddd {
     display: block;
     margin-top: 1rem;
     background-color: white;
@@ -66,11 +66,11 @@ body {
     width: 30rem;
 }
 
-.country-list, .nationality-list, .city-list, .currency-list, .phone-list {
+.country-list, .nationality-list, .city-list, .currency-list, .phone-list, .ddd-list {
     margin-top: 1rem;
 }
 
-.legend-country, .legend-nationality, .legend-city, .legend-phone {
+.legend-country, .legend-nationality, .legend-city, .legend-phone, .legend-ddd {
     display: block;
     width: 100%;
 }
